@@ -12,13 +12,6 @@ func ValidateParams[T any]() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		var dto T
 
-		// Check if contextData is available
-		if contextData := c.Locals("contextData"); contextData != nil {
-			if castedDto, ok := contextData.(*T); ok {
-				dto = *castedDto
-			}
-		}
-
 		if err := c.BodyParser(&dto); err != nil {
 			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 				"fieldErrors": []dtos.FieldErrorResponseDTO{
