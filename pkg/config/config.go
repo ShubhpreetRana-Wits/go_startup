@@ -13,6 +13,8 @@ type Config struct {
 
 	// Database settings
 	GRPC_PORT       string
+	NOTI_GRPC_HOST  string
+	NOTI_GRPC_PORT  string
 	DBHost          string
 	REDIRECTION_URL string
 	DBPort          string
@@ -30,6 +32,8 @@ func LoadConfig() (*Config, error) {
 	// Default values
 	config := &Config{
 		GRPC_PORT:       getEnv("GRPC_PORT", "50051"),
+		NOTI_GRPC_PORT:  getEnv("NOTI_GRPC_PORT", "50052"),
+		NOTI_GRPC_HOST:  getEnv("NOTI_GRPC_HOST", ""),
 		ServerPort:      getEnv("PORT", "8081"),
 		REDIRECTION_URL: getEnv("REDIRECTION_URL", "http://localhost:8081"),
 		DBHost:          getEnv("DB_HOST", "localhost"),

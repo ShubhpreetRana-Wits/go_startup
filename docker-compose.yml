@@ -31,6 +31,8 @@ services:
     environment:
       - PORT=8081
       - GRPC_PORT=50051
+      - NOTI_GRPC_PORT=50052
+      - NOTI_GRPC_HOST=notification_service
       - REDIRECTION_URL=http://localhost:8081
       - DB_HOST=postgres
       - DB_PORT=5432

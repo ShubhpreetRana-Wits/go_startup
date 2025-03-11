@@ -7,6 +7,7 @@ import (
 	"os/signal"
 	"syscall"
 
+	"example.com/startup/grpc/client"
 	"example.com/startup/grpc/controller"
 	pb "example.com/startup/grpc/generated"
 	"example.com/startup/internal/infrastucture/db"
@@ -72,7 +73,7 @@ func startGRPCServer(dbClient *db.PostgresClient, cfg *config.Config) (*grpc.Ser
 
 	generateUrlRepo := repository.NewGenerateUrlRepository(dbClient)
 	generateUrlUseCase := usecases.NewGenrateUrlUsecase(generateUrlRepo)
-	serverController := controller.NewServer(generateUrlUseCase)
+	serverController := controller.NewServer(generateUrlUseCase, client.SendMessageClient{Cfg: cfg})
 
 	grpcServer := grpc.NewServer()
 	pb.RegisterGenerateURLServiceServer(grpcServer, serverController)

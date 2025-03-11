@@ -7,6 +7,7 @@ import (
 	"strings"
 	"time"
 
+	"example.com/startup/grpc/client"
 	pb "example.com/startup/grpc/generated"
 	"example.com/startup/internal/domain/entities"
 	"example.com/startup/internal/dtos"
@@ -21,12 +22,14 @@ import (
 type Server struct {
 	pb.UnimplementedGenerateURLServiceServer
 	generateUrlUseCase usecases.GeneratedUrlUseCase
+	messageClient      client.SendMessageClient
 }
 
 // NewServer initializes a new gRPC Server instance
-func NewServer(generateUrlUseCase usecases.GeneratedUrlUseCase) *Server {
+func NewServer(generateUrlUseCase usecases.GeneratedUrlUseCase, messageClient client.SendMessageClient) *Server {
 	return &Server{
 		generateUrlUseCase: generateUrlUseCase,
+		messageClient:      messageClient,
 	}
 }
 
@@ -60,6 +63,7 @@ func (s *Server) GenerateURL(ctx context.Context, req *pb.GenerateUrlRequest) (*
 
 	redirectURL := fmt.Sprintf("%s/%s?token=%s", cfg.REDIRECTION_URL, response.ID, token)
 
+	s.messageClient.SendMessage()
 	return &pb.GenerateUrlResponse{
 		RedirectUrl: redirectURL,
 	}, nil
