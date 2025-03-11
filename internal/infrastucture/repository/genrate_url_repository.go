@@ -6,7 +6,7 @@ import (
 
 	"example.com/startup/internal/domain/entities"
 	"example.com/startup/internal/domain/repositories"
-	"example.com/startup/pkg/db"
+	"example.com/startup/internal/infrastucture/db"
 	"gorm.io/gorm"
 )
 

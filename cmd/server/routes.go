@@ -2,11 +2,12 @@ package server
 
 import (
 	"example.com/startup/internal/dtos"
+	"example.com/startup/internal/infrastucture/db"
 	"example.com/startup/internal/infrastucture/repository"
 	"example.com/startup/internal/interfaces/controllers"
 	"example.com/startup/internal/interfaces/middleware"
 	"example.com/startup/internal/interfaces/usecases"
-	"example.com/startup/pkg/db"
+
 	"github.com/gofiber/fiber/v2"
 )
 

@@ -90,7 +90,7 @@ func (g *GenerateURLController) DeleteURL(c *fiber.Ctx) error {
 
 	// Return success response
 	log.Println("Successfully deleted URL")
-	return dtos.NewResponse(c, "URL deleted successfully", fiber.StatusOK, "")
+	return dtos.NewResponse(c, "URL deleted successfully", fiber.StatusOK, map[string]string{"message": "URL deleted successfully"})
 }
 
 // GenerateTokenWithClaim encrypts request data, generates a JWT, and saves the request.

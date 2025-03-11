@@ -27,8 +27,10 @@ services:
       - postgres
     ports:
       - "8081:8081"  # Expose the container's 8080 port to the host's 8081 port
+      - "50051:50051"
     environment:
       - PORT=8081
+      - GRPC_PORT=50051
       - REDIRECTION_URL=http://localhost:8081
       - DB_HOST=postgres
       - DB_PORT=5432

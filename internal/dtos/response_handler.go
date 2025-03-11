@@ -1,6 +1,7 @@
 package dtos
 
 import (
+	"fmt"
 	"log"
 	"reflect"
 
@@ -37,7 +38,7 @@ func NewResponse[T any](c *fiber.Ctx, message string, code int, data T) error {
 	log.Printf("[DEBUG] Response Body: %+v\n", baseResponse)
 
 	// Send JSON response
-	return c.Status(code).JSON(baseResponse)
+	return c.Status(code).JSON(requestData)
 }
 
 // NewErrorResponse creates a structured error response.
@@ -50,10 +51,9 @@ func NewErrorResponse(c *fiber.Ctx, message string, code int) error {
 	log.Printf("[ERROR] %s | Code: %d | Details: %s\n", message, code, message)
 
 	// Create error response
-	errResponse := BaseResponse{
-		Message: message,
-		Success: false,
-		Code:    code,
+	errResponse := FieldErrorResponseDTO{
+		ErrorCode:    fmt.Sprint(code),
+		ErrorMessage: message,
 	}
 
 	return c.Status(code).JSON(errResponse)
