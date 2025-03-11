@@ -28,12 +28,12 @@ func LoadConfig() (*Config, error) {
 
 	// Default values
 	config := &Config{
-		ServerPort:      getEnv("PORT", "8080"),
+		ServerPort:      getEnv("PORT", "8081"),
 		REDIRECTION_URL: getEnv("REDIRECTION_URL", "http://localhost:8081"),
 		DBHost:          getEnv("DB_HOST", "localhost"),
-		DBPort:          getEnv("DB_PORT", "5432"),
-		DBUser:          getEnv("DB_USER", "postgres"),
-		DBPassword:      getEnv("DB_PASSWORD", "postgres"),
+		DBPort:          getEnv("DB_PORT", "5434"),
+		DBUser:          getEnv("DB_USER", "user"),
+		DBPassword:      getEnv("DB_PASSWORD", "password"),
 		DBName:          getEnv("DB_NAME", "golearn"),
 		DBSSLMode:       getEnv("DB_SSL_MODE", "disable"),
 	}

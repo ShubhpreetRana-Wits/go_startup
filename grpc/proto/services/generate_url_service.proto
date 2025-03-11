@@ -1,0 +1,67 @@
+// proto/services/generate_url_service.proto
+syntax = "proto3";
+
+package service;
+
+import "google/protobuf/struct.proto"; 
+
+option go_package = "../../generated/services;services";
+
+// Define the service that handles Generate URL actions
+service GenerateURLService {
+    // Method to generate a URL
+    rpc GenerateURL(GenerateUrlRequest) returns (GenerateUrlResponse);
+
+    // Method to retrieve a URL
+    rpc GetURL(GetUrlRequest) returns (GenerateUrlInfoResponse);
+
+    // Method to delete a URL
+    rpc DeleteURL(DeleteUrlRequest) returns (BaseResponse);
+}
+
+// Define the GenerateUrlRequest message
+message GenerateUrlRequest {
+    string user_id = 1;      // Corresponds to UserID field in Go
+    string request_type = 2; // Corresponds to RequestType field in Go
+}
+
+// Define the GenerateUrlRequest message
+message GetUrlRequest {
+    string id = 1;
+}
+
+// Define the GenerateUrlRequest message
+message DeleteUrlRequest {
+    string id = 1;
+}
+
+// BaseResponse message for common response structure
+message BaseResponse {
+    string message = 1;
+    bool success = 2;
+    int32 code = 3;  // Optional error code
+    google.protobuf.Struct data = 4;  // Optional data, use Any for flexible types
+}
+
+// GenerateUrlResponse extends BaseResponse for URL generation
+message GenerateUrlResponse {
+    string redirect_url = 1;  // URL for redirection
+}
+
+// GenerateUrlInfoResponse holds user-specific URL information
+message GenerateUrlInfoResponse {
+    string user_id = 1;
+    string request_type = 2;
+}
+
+// ErrorResponse extends BaseResponse for error cases
+message ErrorResponse {
+    string error_details = 1;  // Detailed error message
+}
+
+// FieldErrorResponseDTO message for validation errors
+message FieldErrorResponseDTO {
+    string error_code = 1;  // Error code
+    string error_message = 2;  // Error message
+    string field = 3;  // The field that caused the error
+}
