@@ -63,9 +63,9 @@ func (s *Server) GenerateURL(ctx context.Context, req *pb.GenerateUrlRequest) (*
 
 	redirectURL := fmt.Sprintf("%s/%s?token=%s", cfg.REDIRECTION_URL, response.ID, token)
 
-	s.messageClient.SendMessage()
+	s.messageClient.SendMessage("Url Generated Success \n" + redirectURL)
 	return &pb.GenerateUrlResponse{
-		RedirectUrl: redirectURL,
+		RedirectUrl: "Request is genrated anforwarded to you email/phone",
 	}, nil
 }
 

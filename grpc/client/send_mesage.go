@@ -15,7 +15,7 @@ type SendMessageClient struct {
 	Cfg *config.Config
 }
 
-func (s *SendMessageClient) SendMessage() (*services.SentMessageResponse, error) {
+func (s *SendMessageClient) SendMessage(message string) (*services.SentMessageResponse, error) {
 	log.Println("Initializing gRPC connection...")
 
 	// Set up connection to gRPC server
@@ -33,9 +33,12 @@ func (s *SendMessageClient) SendMessage() (*services.SentMessageResponse, error)
 
 	// Create request
 	req := &services.ConsumeMessageRequest{
-		User:    "Shobit",
-		Message: "Url Generated Success",
-		Medium:  "mail",
+		Username: "Shobit",
+		Content:  message,
+		Subject:  "Login Request has been generated",
+		Medium:   []string{"mail", "twillio_phone", "twillio_whatsapp"},
+		Email:    "testmessage@yopmail.com",
+		Phone:    "+917973072913",
 	}
 	log.Printf("Sending message request: %+v\n", req)
 
